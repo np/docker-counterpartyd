@@ -1,19 +1,15 @@
-FROM base/archlinux
-MAINTAINER David Parrish
+FROM ubuntu:14.04
 
-# Full Arch update.
-RUN pacman -Syuq --noconfirm --ignore filesystem
+MAINTAINER Nicolas Pouillard [https://nicolaspouillard.fr]
 
-# Get some dependencies for Packer.
-#RUN pacman -Syq --noconfirm --needed git jshon fakeroot binutils
-RUN pacman -Syq --noconfirm --needed base-devel git jshon
-
-# Get Packer to help with installing from AUR
-RUN git clone https://github.com/keenerd/packer.git /opt/packer
-RUN chmod +x /opt/packer/packer
+RUN apt-get update && \
+    apt-get install -y python3-dev git python3-setuptools gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install counterparty
-RUN /opt/packer/packer -S --noedit --noconfirm counterpartyd
+RUN git clone https://github.com/CounterpartyXCP/counterpartyd.git && \
+    cd counterpartyd && \
+    python3 setup.py install
 
 # Add counterpartyd.sh script entrypoint.
 ADD counterpartyd.sh /usr/local/bin/
