@@ -6,6 +6,12 @@ RUN apt-get update && \
     apt-get install -y python3-dev git python3-setuptools gcc wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Set the locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 RUN wget https://github.com/CounterpartyXCP/federatednode_build/raw/master/run.py
 
 # # Install counterparty
