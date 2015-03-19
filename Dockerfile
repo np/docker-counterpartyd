@@ -5,7 +5,7 @@ MAINTAINER Nicolas Pouillard [https://nicolaspouillard.fr]
 RUN apt-key update && apt-get update && \
     apt-get install -y \
       git-core software-properties-common python-software-properties \
-      build-essential ssl-cert ntp runit curl \
+      build-essential ssl-cert ntp runit curl wget \
       python3 python3-setuptools python3-dev python3-pip \
       build-essential python3-sphinx python-virtualenv \
       libsqlite3-dev python3-apsw python3-zmq && \
