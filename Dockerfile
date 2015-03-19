@@ -2,9 +2,15 @@ FROM ubuntu:14.04
 
 MAINTAINER Nicolas Pouillard [https://nicolaspouillard.fr]
 
-RUN apt-get update && \
-    apt-get install -y python3-dev git python3-setuptools gcc wget && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-key update && apt-get update && \
+    apt-get -y remove nodejs npm gyp && \
+    add-apt-repository -y ppa:chris-lea/node.js && \
+    apt-get install -y \
+      git-core software-properties-common python-software-properties \
+      build-essential ssl-cert ntp runit curl \
+      python3 python3-setuptools python3-dev python3-pip \
+      build-essential python3-sphinx python-virtualenv \
+      libsqlite3-dev python3-apsw python3-zmq
 
 # Set the locale
 RUN locale-gen en_US.UTF-8
